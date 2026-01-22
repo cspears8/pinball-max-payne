@@ -45,7 +45,7 @@ public class Launch : MonoBehaviour
 
         if (currentPower > 0 && canLaunch)
         {
-            player.LaunchSelf(currentPower);
+            player.LaunchSelf(currentPower, Vector2.up);
         }
 
         currentPower = 0f;

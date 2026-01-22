@@ -20,6 +20,7 @@ public class BallControl : MonoBehaviour
     private Rigidbody2D tetherBody;
     private Vector2 tetherAnchorLocal;
     private SpriteRenderer arrowSprite;
+    private SpriteRenderer sr;
 
     void Awake()
     {
@@ -45,6 +46,7 @@ public class BallControl : MonoBehaviour
         joint.maxDistanceOnly = true;
         
         arrowSprite = arrowTransform.GetComponentInChildren<SpriteRenderer>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     void OnEnable()
@@ -206,8 +208,20 @@ public class BallControl : MonoBehaviour
         HideLine();
     }
     
-    public void LaunchSelf(float currentPower)
+    public void LaunchSelf(float currentPower, Vector3 dir)
     {
-        rb.AddForce(Vector2.up * currentPower, ForceMode2D.Impulse);
+        rb.AddForce(dir * currentPower, ForceMode2D.Impulse);
+    }
+
+    public void Hold()
+    {
+        rb.bodyType = RigidbodyType2D.Static;
+        sr.enabled = false;
+    }
+
+    public void Release()
+    {
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        sr.enabled = true;
     }
 }

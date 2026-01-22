@@ -182,17 +182,6 @@
                 },
                 {
                     "name": "",
-                    "id": "d8b6f6be-eb8f-4ffa-a930-399cf356f784",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "5637d890-4d3a-49fb-9858-8ccbd2aab06a",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
