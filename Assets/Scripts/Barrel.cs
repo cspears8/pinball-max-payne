@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using MoreMountains.Feedbacks;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class Barrel : MonoBehaviour
 {
     [SerializeField] private float power = 20f;
     [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private MMF_Player launchFeedback;
 
     private bool canLaunch = false;
     private BallControl player;
@@ -44,6 +46,7 @@ public class Barrel : MonoBehaviour
 
         Vector2 dir = Quaternion.Euler(0, 0, rotation) * Vector2.up;
         player.LaunchSelf(power, dir);
+        launchFeedback?.PlayFeedbacks();
         
         StartCoroutine(IgnoreTrigger());
     }

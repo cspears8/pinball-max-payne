@@ -62,6 +62,7 @@ public class TimeController : MonoBehaviour
     void StopSlowing()
     {
         slowing = false;
+        enterFeedback?.StopFeedbacks();
     }
 
     void HandleEnergy()
@@ -74,9 +75,9 @@ public class TimeController : MonoBehaviour
         energy = Mathf.Clamp(energy, 0f, maxEnergy);
 
         fillImage.fillAmount = NormalizedEnergy;
-        
+
         if (energy <= 0f)
-            slowing = false;
+            StopSlowing();
     }
 
     void HandleTimeScale()
