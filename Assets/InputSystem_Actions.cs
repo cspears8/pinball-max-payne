@@ -137,7 +137,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ParryDirection"",
+                    ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""96332344-1ee3-41ed-b204-5005fad14b80"",
                     ""expectedControlType"": ""Vector2"",
@@ -262,7 +262,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""ParryDirection"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8b6f6be-eb8f-4ffa-a930-399cf356f784"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -877,7 +888,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Tether = m_Player.FindAction("Tether", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Retry = m_Player.FindAction("Retry", throwIfNotFound: true);
-        m_Player_ParryDirection = m_Player.FindAction("ParryDirection", throwIfNotFound: true);
+        m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_TimeSlow = m_Player.FindAction("TimeSlow", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -977,7 +988,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Tether;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Retry;
-    private readonly InputAction m_Player_ParryDirection;
+    private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_TimeSlow;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
@@ -1011,9 +1022,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Retry => m_Wrapper.m_Player_Retry;
         /// <summary>
-        /// Provides access to the underlying input action "Player/ParryDirection".
+        /// Provides access to the underlying input action "Player/Move".
         /// </summary>
-        public InputAction @ParryDirection => m_Wrapper.m_Player_ParryDirection;
+        public InputAction @Move => m_Wrapper.m_Player_Move;
         /// <summary>
         /// Provides access to the underlying input action "Player/TimeSlow".
         /// </summary>
@@ -1059,9 +1070,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Retry.started += instance.OnRetry;
             @Retry.performed += instance.OnRetry;
             @Retry.canceled += instance.OnRetry;
-            @ParryDirection.started += instance.OnParryDirection;
-            @ParryDirection.performed += instance.OnParryDirection;
-            @ParryDirection.canceled += instance.OnParryDirection;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
             @TimeSlow.started += instance.OnTimeSlow;
             @TimeSlow.performed += instance.OnTimeSlow;
             @TimeSlow.canceled += instance.OnTimeSlow;
@@ -1091,9 +1102,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Retry.started -= instance.OnRetry;
             @Retry.performed -= instance.OnRetry;
             @Retry.canceled -= instance.OnRetry;
-            @ParryDirection.started -= instance.OnParryDirection;
-            @ParryDirection.performed -= instance.OnParryDirection;
-            @ParryDirection.canceled -= instance.OnParryDirection;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
             @TimeSlow.started -= instance.OnTimeSlow;
             @TimeSlow.performed -= instance.OnTimeSlow;
             @TimeSlow.canceled -= instance.OnTimeSlow;
@@ -1433,12 +1444,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRetry(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "ParryDirection" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnParryDirection(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "TimeSlow" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

@@ -13,6 +13,7 @@ public class BallControl : MonoBehaviour
     private Rigidbody2D rb;
     private InputSystem_Actions actions;
     private Vector2 aimVector;
+    private Vector2 moveVector;
     private Camera cam;
     private bool tetherActive = false;
     private Vector2 tetherAnchorWorld;
@@ -55,6 +56,9 @@ public class BallControl : MonoBehaviour
         
         actions.Player.Look.performed += ctx => aimVector = ctx.ReadValue<Vector2>();
         actions.Player.Look.canceled += ctx => aimVector = Vector2.zero;
+
+        actions.Player.Move.performed += ctx => moveVector = ctx.ReadValue<Vector2>();
+        actions.Player.Move.canceled += ctx => moveVector = Vector2.zero;
         
         actions.Player.Retry.performed += ctx => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
@@ -78,6 +82,17 @@ public class BallControl : MonoBehaviour
     {
         UpdateArrow();
         UpdateTether();
+        UpdateDirection();
+    }
+
+    private void UpdateDirection()
+    {
+        Vector3 dir = rb.linearVelocity;
+        if(dir.y < -0.1f || dir.y > 0.1f)
+        {
+            dir += new Vector3(moveVector.x, moveVector.y, 0) * (Time.deltaTime * 10f);
+            rb.linearVelocity = dir;
+        }
     }
 
     private void UpdateTether()

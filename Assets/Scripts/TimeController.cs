@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,9 @@ public class TimeController : MonoBehaviour
     [SerializeField] private float drainRate = 1f;
     [SerializeField] private float rechargeRate = 0.75f;
     [SerializeField] private Image fillImage;
+    
+    [Header("Juice")]
+    [SerializeField] private MMF_Player enterFeedback;
 
     private float energy;
     private bool slowing;
@@ -29,8 +33,8 @@ public class TimeController : MonoBehaviour
     {
         actions ??= new InputSystem_Actions();
         
-        actions.Player.TimeSlow.started += _ => slowing = true;
-        actions.Player.TimeSlow.canceled += _ => slowing = false;
+        actions.Player.TimeSlow.started += _ => StartSlowing();
+        actions.Player.TimeSlow.canceled += _ => StopSlowing();
 
         actions.Enable();
     }
@@ -39,14 +43,25 @@ public class TimeController : MonoBehaviour
     {
         actions.Disable();
         
-        actions.Player.TimeSlow.started -= _ => slowing = false;
-        actions.Player.TimeSlow.canceled -= _ => slowing = false;
+        actions.Player.TimeSlow.started -= _ => StartSlowing();
+        actions.Player.TimeSlow.canceled -= _ => StopSlowing();
     }
 
     void Update()
     {
         HandleEnergy();
         HandleTimeScale();
+    }
+
+    void StartSlowing()
+    {
+        slowing = true;
+        enterFeedback?.PlayFeedbacks();
+    }
+
+    void StopSlowing()
+    {
+        slowing = false;
     }
 
     void HandleEnergy()
